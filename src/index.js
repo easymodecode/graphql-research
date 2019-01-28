@@ -13,23 +13,34 @@ type Link {
 }
 `;
 
-let links = [{
-  id: 'link-0',
-  url: 'www.howtographql.com',
-  description: 'Fullstack tutorial for GraphQL'
-}];
+let links = [
+  {
+    id: 'link-0',
+    url: 'www.howtographql0.com',
+    description: 'Fullstack tutorial for GraphQL0',
+  },
+  {
+    id: 'link-1',
+    url: 'www.howtographql.com1',
+    description: 'Fullstack tutorial for GraphQL1',
+  },
+  {
+    id: 'link-2',
+    url: 'www.howtographql.com2',
+    description: 'Fullstack tutorial for GraphQL2',
+  },
+  {
+    id: 'link-3',
+    url: 'www.howtographql.com3',
+    description: 'Fullstack tutorial for GraphQL3',
+  },
+];
 
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     feed: () => links,
   },
-
-  Link: {
-    id: (parent) => parent.id,
-    description: (parent) => parent.description,
-    url: (parent) => parent.url,
-  }
 };
 
 const server = new GraphQLServer({
