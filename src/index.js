@@ -1,4 +1,5 @@
 const { GraphQLServer } = require('graphql-yoga');
+const { find, isEqual, remove } = require('lodash');
 
 let links = [
   {
@@ -29,19 +30,33 @@ const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     feed: () => links,
+    link: (parent, args) => find(links, (link) => isEqual(args.id, link.id)),
   },
   Mutation: {
-    post: (parent, args) => {
+    postLink: (parent, args) => {
       const link = {
         id: `link-${idCount++}`,
-        descirption: args.description,
+        description: args.description,
         url: args.url,
       };
       links.push(link);
       return link;
     },
-  },
-};
+    updateLink: (parent, args) => {
+      const link = find(links, { id: args.id });
+      if (args.description) {
+        link.description = args.description;
+      }
+      if (args.url) {
+        link.url = args.url;
+      }
+      return link;
+    },
+    deleteLink: (parent, args) => {
+      return remove(links, (link) => isEqual(args.id, link.id))[0]; 
+    }
+  }
+}
 
 const server = new GraphQLServer({
   typeDefs: 'src/schema.graphql',
