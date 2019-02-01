@@ -12,7 +12,7 @@ function getUserId(context) {
   throw new Error('Not Authenticated');
 }
 
-modules.exports = {
+module.exports = {
   APP_SECRET,
   getUserId,
 }
